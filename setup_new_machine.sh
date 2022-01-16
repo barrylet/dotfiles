@@ -40,6 +40,8 @@ $pacman_cmd make
 $pacman_cmd gcc
 $pacman_cmd which
 $pacman_cmd ctags
+$pacman_cmd discord
+$pacman_cmd vlc
 
 # poetry
 curl -sSL https://install.python-poetry.org | python3 -
@@ -82,4 +84,16 @@ bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 sudo systemctl enable docker
 sudo systemctl start docker
 
+# AUR packages
+## enable AUR
+sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
+
+## install packages
+pamac_cmd="sudo pamac install --no-confirm "
+
+# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --import -
+# $pamac_cmd spotify
+$pamac_cmd pyenv-virtualenv
+$pamac_cmd slack-desktop
+$pamac_cmd telegram-desktop-bin
 
