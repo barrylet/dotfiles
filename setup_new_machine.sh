@@ -1,6 +1,13 @@
 
 # main packages to add
+
+## install sudo
 pacman -Syu --noconfirm sudo
+
+## update mirrorlist
+sudo rankmirrors -f 30
+
+## install packages
 pacman_cmd='sudo pacman --noconfirm -S '
 
 $pacman_cmd firefox
@@ -32,6 +39,7 @@ $pacman_cmd openjdk-src
 $pacman_cmd make
 $pacman_cmd gcc
 $pacman_cmd which
+$pacman_cmd ctags
 
 # poetry
 curl -sSL https://install.python-poetry.org | python3 -
