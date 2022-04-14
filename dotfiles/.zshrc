@@ -109,6 +109,7 @@ alias pdb="python3 -m pdb "
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 
@@ -145,9 +146,12 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
 
+export EDITOR=vim
+
 alias nvmsrc="source /usr/share/nvm/init-nvm.sh"
 
 # Pure theme
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
+
