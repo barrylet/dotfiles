@@ -7,6 +7,7 @@ cp "$HOME/.gitconfig" dotfiles/
 cp "$HOME/.tmux.conf" dotfiles/
 cp "$HOME/.vimrc" dotfiles/
 cp "$HOME/.zshrc" dotfiles/
+cp "$HOME/.profile" dotfiles/
 cp -r "$HOME/.i3/" dotfiles/
 
 mkdir dotfiles/.config
