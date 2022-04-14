@@ -1,14 +1,17 @@
+#!/usr/bin/env bash
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root, use sudo "$0" instead" 1>&2
+   exit 1
+fi
 
 # main packages to add
 
-## install sudo
-pacman -Syu --noconfirm sudo
-
 ## update mirrorlist
-sudo rankmirrors -f 30
+rankmirrors -f 30
 
 ## install packages
-pacman_cmd='sudo pacman --noconfirm -S '
+pacman_cmd='pacman --noconfirm -S '
 
 $pacman_cmd firefox
 $pacman_cmd git
@@ -42,54 +45,76 @@ $pacman_cmd which
 $pacman_cmd ctags
 $pacman_cmd discord
 $pacman_cmd vlc
+$pacman_cmd alacritty
+$pacman_cmd extra/kde-connect
+$pacman_cmd alsa-utils
+$pacman_cmd dbeaver
+$pacman_cmd gvim
+$pacman_cmd the_silver_searcher
+$pacman_cmd plopper-glib
+$pacman_cmd gwenview
+$pacman_cmd chromium 
+$pacman_cmd playerctl 
+$pacman_cmd bluez-utils 
+$pacman_cmd bat
+$pacman_cmd postgresql-libs
+$pacman_cmd spectacle
+$pacman_cmd dolphin
+$pacman_cmd ttf-roboto-mono
+$pacman_cmd powerline-fonts
+$pacman_cmd ttf-jetbrains-mono
+$pacman_cmd zip
+$pacman_cmd tk
+$pacman_cmd gnome-keyring
+$pacman_cmd code
 
 # poetry
-curl -sSL https://install.python-poetry.org | python3 -
+sudo -u $USER curl -sSL https://install.python-poetry.org | python3 -
 
 # oh-my-zsh
 
 ## main instalation
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 ## oh-my-zsh backs up current .zshrc, so we'll un-back-it
-rm $HOME/.zshrc
-mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
+sudo -u $USER rm $HOME/.zshrc
+sudo -u $USER mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
 
 ## change default shell
-chsh -s $(which zsh)
+sudo -u $USER chsh -s $(which zsh)
 
 ## zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sudo -u $USER git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 ## pure theme
-mkdir -p "$HOME/.zsh"
-git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+sudo -u $USER mkdir -p "$HOM2E/.zsh"
+sudo -u $USER git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
 ## forgit
-git clone https://github.com/wfxr/forgit ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/forgit
+sudo -u $USER git clone https://github.com/wfxr/forgit ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/forgit
 
 
 # vim
 ## install vim-plug plugins. First time it runs it will auto-install vim-plug
-vim -c "PlugInstall" -c "qa"
+sudo -u $USER vim -c "PlugInstall" -c "qa"
 ## finish ycm setup
-python3 $HOME/.vim/plugged/YouCompleteMe/install.py --all 
+sudo -u $USER python3 $HOME/.vim/plugged/YouCompleteMe/install.py --all 
 
 # tmux
 ## install tpm package manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+sudo -u $USER git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+sudo -u $USER bash ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 # enable services
 ## docker
-sudo systemctl enable docker
-sudo systemctl start docker
+systemctl enable docker
+systemctl start docker
 
 # AUR packages
 ## enable AUR
-sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
+sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 
 ## install packages
-pamac_cmd="sudo pamac install --no-confirm "
+pamac_cmd="pamac install --no-confirm "
 
 # curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --import -
 # $pamac_cmd spotify

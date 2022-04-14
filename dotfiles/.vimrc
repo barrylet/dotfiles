@@ -58,6 +58,11 @@ set number rnu
 " no compatible mode
 set nocp
 
+" set hybrid numbers
+" to disable: set nornu
+" to toggle: set rnu!
+set nu rnu
+
 " for enabling mouse dragging while in tmux
 set ttymouse=xterm2
 set mouse=a
@@ -87,6 +92,8 @@ cmap <Esc>[1;2C <S-Right>
 
 " fzf mappings
 map <C-P> :Files<CR>
+" replace fzf command to ignore git files
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " NERDTree mapping
 map <leader>o :NERDTreeToggle<CR>
