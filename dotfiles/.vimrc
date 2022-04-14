@@ -53,10 +53,14 @@ if has('syntax') && has('eval')
 endif
 
 " line numbers
-set number
+set number rnu
 
 " no compatible mode
 set nocp
+
+" for enabling mouse dragging while in tmux
+set ttymouse=xterm2
+set mouse=a
 
 let g:powerline_pycmd="py3"
 
@@ -149,6 +153,9 @@ endif
 set tabstop=4
 set shiftwidth=4
 
+" ignore certain files and folders while using vimgrep
+:set wildignore+=venv/**,.venv/**,node_modules,*.pdf,*.pyc
+
 " Default to static completion for SQL, to supress SQLComplete warning
 let g:omni_sql_default_compl_type = 'syntax'
 let g:loaded_sql_completion = 0
@@ -157,9 +164,16 @@ let g:omni_sql_no_default_maps = 1
 " set tags folder to a tmp one
 let g:gutentags_cache_dir = "/tmp/vimtags"
 
-" markdown block syntax highlight
-au BufNewFile,BufReadPost *.md set filetype=markdown
-let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'py=python', 'python']
+" enable math mode syntax highlight in markdown
+let g:vim_markdown_math = 1
+" disable folding in markdown
+let g:vim_markdown_folding_disabled = 1
+
+" disable folding when opening a file
+set nofoldenable
+
+" " markdown block syntax highlight
+let g:vim_markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'py=python', 'python']
 
 " vim latex settings
 let g:tex_flavor='latex'
@@ -258,6 +272,16 @@ Plug 'arzg/vim-colors-xcode'
 
 " Goto for distraction-free writing
 Plug 'junegunn/goyo.vim'
+
+" Search results count, etc
+Plug 'google/vim-searchindex'
+
+" markdown syntax plugin
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+
+" python folding options
+Plug 'tmhedberg/SimpylFold'
 
 call plug#end()
 

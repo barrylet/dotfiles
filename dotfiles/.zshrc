@@ -109,6 +109,7 @@ alias pdb="python3 -m pdb "
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 
@@ -146,8 +147,27 @@ export PATH="$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 alias nvmsrc="source /usr/share/nvm/init-nvm.sh"
+alias :q="exit"
+
+export PATH="$PATH:$HOME/Apps/anaconda3/bin"
 
 # Pure theme
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/javier/Apps/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/javier/Apps/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/javier/Apps/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/javier/Apps/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
