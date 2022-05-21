@@ -93,7 +93,7 @@ cmap <Esc>[1;2C <S-Right>
 " fzf mappings
 map <C-P> :Files<CR>
 " replace fzf command to ignore git files
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " NERDTree mapping
 map <leader>o :NERDTreeToggle<CR>
@@ -207,10 +207,16 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" remove redundant -- INSERT -- indicator
+set noshowmode
+
+" set status bar lightline to match color theme moonfly
+let g:lightline = { 'colorscheme': 'moonfly' }
+
 " vim-plug section for downloading and installing plugins
 call plug#begin('~/.vim/plugged')  
 
-" fzf, for file finder and explorer
+" " fzf, for file finder and explorer
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }   
 Plug 'junegunn/fzf.vim'
 
@@ -276,6 +282,10 @@ Plug 'honza/vim-snippets'
 
 " color scheme theme
 Plug 'arzg/vim-colors-xcode'
+Plug 'bluz71/vim-moonfly-colors'
+
+" advanced syntax highlight
+Plug 'sheerun/vim-polyglot'
 
 " Goto for distraction-free writing
 Plug 'junegunn/goyo.vim'
@@ -290,7 +300,14 @@ Plug 'preservim/vim-markdown'
 " python folding options
 Plug 'tmhedberg/SimpylFold'
 
+" tmux integration/navigation
+Plug 'christoomey/vim-tmux-navigator'
+
+" status bar
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 " set theme
-silent! colorscheme xcodedarkhc 
+" silent! colorscheme xcodedarkhc 
+silent! colorscheme moonfly

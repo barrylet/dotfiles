@@ -109,8 +109,8 @@ alias pdb="python3 -m pdb "
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
-eval "$(pyenv init --path)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init --path)"
+# eval "$(pyenv virtualenv-init -)"
 
 
 export FZF_CTRL_T_COMMAND="command find -L . -mindepth 1 \\( -path '*/\\.*' \
