@@ -20,8 +20,6 @@ endif
 " Get the defaults that most users want.
 source $VIMRUNTIME/defaults.vim
 
-" test undo
-" ok let's try this
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
@@ -291,7 +289,7 @@ Plug 'airblade/vim-gitgutter'
 " autocomplete
 Plug 'ycm-core/YouCompleteMe'
 " disable youcompleteme ycm (comment to re-enable)
-let g:loaded_youcompleteme = 1
+" let g:loaded_youcompleteme = 1
 
 " disable ycm auto tooltip on hover, map to toggle ycm doc tooltip
 let g:ycm_auto_hover = ''
