@@ -20,11 +20,15 @@ endif
 " Get the defaults that most users want.
 source $VIMRUNTIME/defaults.vim
 
+" test undo
+" ok let's try this
+
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
 else
   set backup		" keep a backup file (restore to previous version)
   if has('persistent_undo')
+    set undodir=~/.vim/undo
     set undofile	" keep an undo file (undo changes after closing)
   endif
 endif
@@ -90,15 +94,57 @@ map  <Esc>[1;2C <S-Right>
 cmap <Esc>[1;2D <S-Left>
 cmap <Esc>[1;2C <S-Right>
 
+" tagbar toggle
+nmap <F8> :TagbarToggle<CR>
+" NERDTree toggle
+nmap <F9> :NERDTreeToggle<CR>
+nmap <F10> :NERDTreeFind<CR>
+
+" coc mappings
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
+
+" "" Use `[g` and `]g` to navigate diagnostics
+" "" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" "" GoTo code navigation.
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" "" Use K to show documentation in preview window.
+" nnoremap <silent> K :call ShowDocumentation()<CR>
+
+" function! ShowDocumentation()
+"   if CocAction('hasProvider', 'hover')
+"     call CocActionAsync('doHover')
+"   else
+"     call feedkeys('K', 'in')
+"   endif
+" endfunction
+
+" "" Formatting selected code.
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+
+" "" Remap keys for applying codeAction to the current buffer.
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" "" Apply AutoFix to problem on the current line.
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
 " fzf mappings
 map <C-P> :Files<CR>
 " replace fzf command to ignore git files
 " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" NERDTree mapping
-map <leader>o :NERDTreeToggle<CR>
-" map <C-f> :History/<CR>
-" map <C-k> :History:<CR>
 
 " ctrl-A to select all
 nnoremap <C-A> ggVG
@@ -182,6 +228,9 @@ set nofoldenable
 " " markdown block syntax highlight
 let g:vim_markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'py=python', 'python']
 
+" disable csv replacement of commas to pipes
+let g:csv_no_conceal = 1
+
 " vim latex settings
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -193,6 +242,7 @@ let g:vimtex_quickfix_mode=0
 let g:UltiSnipsExpandTrigger="<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
 
 " language and spelling settings
 set spell
@@ -241,12 +291,17 @@ Plug 'airblade/vim-gitgutter'
 " autocomplete
 Plug 'ycm-core/YouCompleteMe'
 " disable youcompleteme ycm (comment to re-enable)
-" let g:loaded_youcompleteme = 1
+let g:loaded_youcompleteme = 1
 
 " disable ycm auto tooltip on hover, map to toggle ycm doc tooltip
 let g:ycm_auto_hover = ''
 nmap <leader>D <plug>(YCMHover)
 
+" snippet and additional text editing
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" tag viewer
+Plug 'preservim/tagbar'
 
 " mass comment lines
 Plug 'tpope/vim-commentary'
@@ -305,6 +360,10 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " status bar
 Plug 'itchyny/lightline.vim'
+
+" undo tree
+Plug 'simnalamburt/vim-mundo'
+nnoremap <F5> :MundoToggle<CR>
 
 call plug#end()
 
