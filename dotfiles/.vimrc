@@ -205,7 +205,7 @@ set tabstop=4
 set shiftwidth=4
 
 " ignore certain files and folders while using vimgrep
-:set wildignore+=venv/**,.venv/**,node_modules,*.pdf,*.pyc
+:set wildignore+=venv/**,.venv/**,node_modules,*.pdf,*.pyc,*onnx
 
 " Default to static completion for SQL, to supress SQLComplete warning
 let g:omni_sql_default_compl_type = 'syntax'
