@@ -73,7 +73,7 @@ plugins=(
     fzf
     forgit
     zsh-syntax-highlighting
-    # autojump
+    autojump
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias ghost=" unset HISTFILE"
 alias pdb="python3 -m pdb "
+alias vim="nvim"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"

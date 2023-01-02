@@ -27,9 +27,10 @@ git clone https://github.com/wfxr/forgit ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plug
 
 # vim
 ## install vim-plug plugins. First time it runs it will auto-install vim-plug
-vim -c "PlugInstall" -c "qa"
+# vim -c "PlugInstall" -c "qa"
+nvim -c "PackerInstall" -c "qa"
 ## finish ycm setup
-python3 $HOME/.vim/plugged/YouCompleteMe/install.py --all 
+# python3 $HOME/.vim/plugged/YouCompleteMe/install.py --all 
 
 # tmux
 ## install tpm package manager

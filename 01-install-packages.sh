@@ -24,6 +24,7 @@ pacman_cmd='pacman --noconfirm -S '
 $pacman_cmd firefox
 $pacman_cmd git
 $pacman_cmd gvim
+$pacman_cmd neovim
 $pacman_cmd vim-spell-en
 $pacman_cmd vim-spell-es
 $pacman_cmd powerline
@@ -98,3 +99,4 @@ pamac_cmd="pamac install --no-confirm "
 $pamac_cmd pyenv-virtualenv
 $pamac_cmd slack-desktop
 $pamac_cmd telegram-desktop-bin
+$pamac_cmd autojump

@@ -12,3 +12,4 @@ cp -r "$HOME/.i3/" dotfiles/
 
 mkdir dotfiles/.config
 cp -r "$HOME/.config/alacritty" dotfiles/.config
+cp -r "$HOME/.config/nvim" dotfiles/.config
