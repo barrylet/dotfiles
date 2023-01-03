@@ -128,6 +128,13 @@ return require('packer').startup(function(use)
 	use 'ggandor/leap.nvim'
 	require('leap').add_default_mappings()
 
+	-- utilities for nvim plugins
+	use "nvim-lua/plenary.nvim"
+
+	-- toggle diagnostics
+	use "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim"
+	require('toggle_lsp_diagnostics').init()
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

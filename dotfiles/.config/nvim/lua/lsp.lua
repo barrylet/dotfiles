@@ -6,11 +6,12 @@ require("mason-lspconfig").setup()
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
--- Add your own lsp servers right here!
+-- lsp servers
 local servers = {
 	-- clangd = {},
 	-- gopls = {},
 	python_lsp_server = {},
+	json_lsp = {},
 	-- rust_analyzer = {},
 	-- tsserver = {},
 
@@ -33,6 +34,7 @@ mason_lspconfig.setup_handlers {
 }
 
 
+-- Autocomplete
 local cmp = require 'cmp'
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 cmp.setup {
@@ -69,3 +71,41 @@ cmp.setup {
 		{ name = 'ultisnips' },
 	},
 }
+
+-- formatters and linters
+local null_ls = require("null-ls")
+null_ls.setup({
+	sources = {
+		-- python
+		null_ls.builtins.diagnostics.pylint.with({
+			diagnostics_postprocess = function(diagnostic)
+				diagnostic.code = diagnostic.message_id
+			end,
+		}),
+		null_ls.builtins.formatting.isort,
+		null_ls.builtins.formatting.black,
+
+		-- json
+		null_ls.builtins.formatting.fixjson,
+	},
+})
+
+
+-- diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- Enable underline, use default values
+    underline = true,
+    -- Enable virtual text, override spacing to 4
+    virtual_text = {
+      spacing = 6,
+    },
+    -- Use a function to dynamically turn signs off
+    -- and on, using buffer local variables
+    signs = function(namespace, bufnr)
+      return vim.b[bufnr].show_signs == true
+    end,
+    -- Disable a feature
+    update_in_insert = false,
+  }
+)
