@@ -77,6 +77,7 @@ $pacman_cmd tk
 $pacman_cmd gnome-keyring
 $pacman_cmd code
 $pacman_cmd rofi
+$pacman_cmd noto-fonts-emoji
 
 # enable services
 ## docker
