@@ -3,3 +3,5 @@
 	name = JDSanto
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main

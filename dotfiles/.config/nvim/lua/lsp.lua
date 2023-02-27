@@ -9,9 +9,11 @@ local mason_lspconfig = require 'mason-lspconfig'
 -- lsp servers
 local servers = {
 	-- clangd = {},
-	-- gopls = {},
+	gopls = {},
 	python_lsp_server = {},
 	json_lsp = {},
+	tflint = {},
+	terraform_ls = {},
 	-- rust_analyzer = {},
 	-- tsserver = {},
 
@@ -84,6 +86,10 @@ null_ls.setup({
 		}),
 		null_ls.builtins.formatting.isort,
 		null_ls.builtins.formatting.black,
+
+		-- go
+		null_ls.builtins.formatting.gofumpt,
+		null_ls.builtins.diagnostics.golangci_lint,
 
 		-- json
 		null_ls.builtins.formatting.fixjson,

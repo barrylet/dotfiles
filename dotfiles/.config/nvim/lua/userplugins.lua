@@ -131,9 +131,33 @@ return require('packer').startup(function(use)
 	-- utilities for nvim plugins
 	use "nvim-lua/plenary.nvim"
 
+	-- treesitter for better syntax highlighting
+    use {
+        'nvim-treesitter/nvim-treesitter',
+    }
+	require'nvim-treesitter.configs'.setup {
+	  -- A list of parser names, or "all" (the four listed parsers should always be installed)
+	  ensure_installed = { "c", "lua", "vim", "help", "hcl", "terraform" },
+
+	  highlight = {
+		enable = true,
+		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+		-- Using this option may slow down your editor, and you may see some duplicate highlights.
+		-- Instead of true it can also be a list of languages
+		additional_vim_regex_highlighting = false,
+	  },
+	}
+
 	-- toggle diagnostics
 	use "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim"
 	require('toggle_lsp_diagnostics').init()
+
+	-- markdown preview
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = function() vim.fn["mkdp#util#install"]() end,
+	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
