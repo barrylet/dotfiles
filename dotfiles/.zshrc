@@ -77,6 +77,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # User configuration
 
@@ -176,4 +177,5 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
 

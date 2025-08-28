@@ -291,13 +291,13 @@ Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
 
 " autocomplete
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 " disable youcompleteme ycm (comment to re-enable)
 " let g:loaded_youcompleteme = 1
 
 " disable ycm auto tooltip on hover, map to toggle ycm doc tooltip
-let g:ycm_auto_hover = ''
-nmap <leader>D <plug>(YCMHover)
+" let g:ycm_auto_hover = ''
+" nmap <leader>D <plug>(YCMHover)
 
 " snippet and additional text editing
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}

@@ -5,15 +5,20 @@ require("mason-lspconfig").setup()
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
+local mason = require 'mason-lspconfig'
 
 -- lsp servers
 local servers = {
 	-- clangd = {},
 	gopls = {},
-	python_lsp_server = {},
+	-- python_lsp_server = {},
+	pyright = {},
 	json_lsp = {},
 	tflint = {},
 	terraform_ls = {},
+	rome = {},
+	sqls = {},
+	-- yaml_lsp_server = {},
 	-- rust_analyzer = {},
 	-- tsserver = {},
 
@@ -25,15 +30,22 @@ local servers = {
 	},
 }
 
-mason_lspconfig.setup_handlers {
-	function(server_name)
-		require('lspconfig')[server_name].setup {
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = servers[server_name],
-		}
-	end,
+
+mason.setup()
+-- Note: `nvim-lspconfig` needs to be in 'runtimepath' by the time you set up mason-lspconfig.nvim
+mason_lspconfig.setup {
+  ensure_installed = { "pyright" }
 }
+
+-- mason_lspconfig.setup_handlers {
+-- 	function(server_name)
+-- 		require('lspconfig')[server_name].setup {
+-- 			capabilities = capabilities,
+-- 			on_attach = on_attach,
+-- 			settings = servers[server_name],
+-- 		}
+-- 	end,
+-- }
 
 
 -- Autocomplete
@@ -48,8 +60,8 @@ cmp.setup {
 	mapping = cmp.mapping.preset.insert {
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<CR>'] = cmp.mapping.confirm {
+		-- ['<C-Space>'] = cmp.mapping.complete(),
+		['<C-Space>'] = cmp.mapping.confirm {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		},
@@ -91,8 +103,20 @@ null_ls.setup({
 		null_ls.builtins.formatting.gofumpt,
 		null_ls.builtins.diagnostics.golangci_lint,
 
+		-- yaml
+		null_ls.builtins.formatting.yamlfmt,
+
 		-- json
 		null_ls.builtins.formatting.fixjson,
+
+		-- typescript, javascript, markdown, html, json, etc
+		-- null_ls.builtins.formatting.prettier,
+		null_ls.builtins.code_actions.xo,
+		null_ls.builtins.formatting.rome,
+		null_ls.builtins.diagnostics.sqlfluff.with({
+			extra_args = { "--dialect", "postgres", "--ignore", "templating", "--config", "/home/javier/.config/nvim/conf/sqlfluff.cfg" },
+		}),
+		-- null_ls.builtins.formatting.sqlfmt,
 	},
 })
 
@@ -115,3 +139,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false,
   }
 )
+
+-- typescript specific config
+-- sudo npm install -g typescript typescript-language-server
+require'lspconfig'.tsserver.setup {}

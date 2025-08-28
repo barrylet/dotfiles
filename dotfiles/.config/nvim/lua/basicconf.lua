@@ -8,8 +8,8 @@ vim.opt.shell = '/bin/bash'
 
 -- skip python host check due to slow start
 -- see https://github.com/neovim/neovim/issues/2437
--- vim.g.python_host_skip_check = 1
--- vim.g.python3_host_skip_check = 1
+vim.g.python_host_skip_check = 1
+vim.g.python3_host_skip_check = 1
 
 -- set python version
 -- vim.g.python3_host_prog = vim.fn.system("which -a python3 | head -n1")
@@ -32,6 +32,8 @@ vim.opt.shiftwidth = 4
 vim.opt.wildignore:append({
 	'venv/**',
 	'.venv/**',
+	'*/venv/*',
+	'*/.venv/*',
 	'node_modules/**',
 	'*.pdf',
 	'*.pyc',
@@ -50,3 +52,9 @@ vim.opt.showmode = false
 
 -- sync system clipboard with vim clipboard
 -- vim.opt.clipboard:append({'unnamedplus'})
+
+-- set tsx files as tsx instead of typescriptreact
+vim.cmd([[
+	autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
+	autocmd bufnewfile,bufread *.jsx set filetype=javascript.jsx
+]])

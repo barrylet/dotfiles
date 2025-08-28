@@ -20,8 +20,8 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	-- fzf file finder
-	use 'junegunn/fzf'
-	use { 'junegunn/fzf', run = "call fzf#install()" }
+	-- use { 'junegunn/fzf', commit = '71fad63'}
+	use { 'junegunn/fzf', run = "call fzf#install()", commit = 'fc69308057cf8486d2753efd76682fd613471da6' }
 	use 'junegunn/fzf.vim'
 
 	-- tmux integration/navigation
@@ -44,12 +44,46 @@ return require('packer').startup(function(use)
 
 	-- tag viewer
 	use 'preservim/tagbar'
+	vim.g.tagbar_type_typescript = {
+		ctagstype = 'typescript',
+		kinds = {
+			'c:class',
+			'n:namespace',
+			'f:function',
+			'G:generator',
+			'v:variable',
+			'm:method',
+			'p:property',
+			'i:interface',
+			'g:enum',
+			't:type',
+			'a:alias',
+		},
+		sro = '.',
+		kind2scope = {
+			c = 'class',
+			n = 'namespace',
+			i = 'interface',
+			f = 'function',
+			G = 'generator',
+			m = 'method',
+			p = 'property',
+		},
+	}
 
 	-- mass comment lines
 	use 'tpope/vim-commentary'
 
 	-- html and tags autocomplete
 	use 'mattn/emmet-vim'
+	vim.g.user_emmet_settings = {
+		javascript = {
+			extends = 'jsx'
+		},
+		typescript = {
+			extends = 'tsx'
+		},
+	}
 
 	-- make % match xml tags
 	use 'tmhedberg/matchit'
@@ -64,7 +98,7 @@ return require('packer').startup(function(use)
 	use 'SirVer/ultisnips'
 	use 'honza/vim-snippets'
 	use 'quangnguyen30192/cmp-nvim-ultisnips' -- for compat with cmp
-	vim.g.UltiSnipsExpandTrigger = "<C-Space>"
+	vim.g.UltiSnipsExpandTrigger = "<tab>"
 	vim.g.UltiSnipsJumpForwardTrigger = "<C-j>"
 	vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
 
@@ -77,6 +111,7 @@ return require('packer').startup(function(use)
 
 	-- color scheme theme
 	use 'arzg/vim-colors-xcode'
+	use 'NLKNguyen/papercolor-theme'
 	use 'bluz71/vim-moonfly-colors'
 
 	-- Goyo for distraction-free writing
@@ -101,7 +136,8 @@ return require('packer').startup(function(use)
 	use 'mfussenegger/nvim-dap'
 
 	-- nvim linter & formatter
-	use 'jose-elias-alvarez/null-ls.nvim'
+	-- use 'jose-elias-alvarez/null-ls.nvim'
+	use 'nvimtools/none-ls.nvim'
 
 	-- nvim autocomplete
 	use 'hrsh7th/cmp-nvim-lsp'
@@ -109,6 +145,11 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-cmdline'
 	use 'hrsh7th/nvim-cmp'
+
+	-- tags generator
+	use 'ludovicchabant/vim-gutentags'
+	-- set tags folder to a tmp one
+	vim.g.gutentags_cache_dir = '/tmp/vimtags'
 
 	-- nvim lsp list of diagnostics
 	use {
@@ -147,7 +188,13 @@ return require('packer').startup(function(use)
 		-- Instead of true it can also be a list of languages
 		additional_vim_regex_highlighting = false,
 	  },
+
+	  context_commentstring= {
+		enable = true,
+	  },
 	}
+	-- conditional mass comment based on treesitter config
+	use "JoosepAlviste/nvim-ts-context-commentstring"
 
 	-- toggle diagnostics
 	use "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim"
